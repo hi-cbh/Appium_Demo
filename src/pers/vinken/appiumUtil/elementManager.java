@@ -1,11 +1,18 @@
 package pers.vinken.appiumUtil;
 
+import java.util.List;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDeviceActionShortcuts;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidKeyCode;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -277,4 +284,171 @@ public class elementManager {
     }
   }
 
+	/**
+	 * 判断某个元素是否存在,true存在；false不存在。
+	 */
+	public static boolean isExistenceById(AppiumDriver<WebElement> driver,String id) {
+		System.out.println("isExistenceById: " + id);
+		try {
+			driver.findElementById(id);
+			System.out.println("isExistenceById: true");
+			return true;
+		} catch (Exception ex) {
+			// 找不到元素
+		}
+		System.out.println("isExistenceById: false");
+		return false;
+	}
+
+	/**
+	 * 在指定时间内，判断元素是否存在，true存在；false不存在。
+	 */
+	public static boolean isExistenceById(AndroidDriver driver,String id, int timeout) {
+		try {
+			driver.findElementById(id);
+			new WebDriverWait(driver, timeout).until(ExpectedConditions
+					.presenceOfAllElementsLocatedBy(By.id(id)));
+			System.out.println("isExistenceById: true");
+			return true;
+		} catch (Exception ex) {
+			// 找不到元素
+		}
+		System.out.println("isExistenceById: false");
+		return false;
+	}
+
+	/**
+	 * 判断某个元素是否存在,true存在；false不存在。
+	 */
+	public static boolean isExistenceByName(AndroidDriver driver,String name) {
+		System.out.println("isExistenceByName: " + name);
+		try {
+			driver.findElementByName(name);
+			System.out.println("isExistenceByName: true");
+			return true;
+		} catch (Exception ex) {
+			// 找不到元素
+		}
+		System.out.println("isExistenceByName: false");
+		return false;
+	}
+	
+	/**
+	 * 根据控件ID获取 元素列表
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public static List<WebElement> getLisWebElementById(AndroidDriver<WebElement> driver,String id) {
+		List<WebElement> list = driver.findElementsById(id);
+		return list;
+	}
+	
+
+	/**
+	 * 通过控件的id，点击控件
+	 * 
+	 * @param id
+	 */
+	public static void clickById(AppiumDriver driver,String id) {
+		try {
+			System.out.println("[start] click: " + id);
+			driver.findElement(By.id(id)).click();
+			System.out.println("[ end ] " + id + ".click");
+		} catch (Exception ex) {
+			System.out.println("Can not find " + id);
+			// ex.printStackTrace();
+		}
+	}
+
+	/**
+	 * 通过控件的txt，点击控件
+	 * 
+	 * @param name
+	 */
+	public static void clickByName(AppiumDriver driver,String name) {
+		try {
+			
+			System.out.println("[start] click: " + name);
+			driver.findElement(By.name(name)).click();
+			System.out.println("[ end ] " + name + ".click");
+		} catch (Exception ex) {
+			System.out.println("Can not find " + name);
+			// ex.printStackTrace();
+		}
+	}
+
+
+	public static void clickPoint(AppiumDriver driver){
+		int height = driver.manage().window().getSize().getHeight();
+		int width = driver.manage().window().getSize().getWidth();
+		driver.tap(1, width/2, height/2, 0);
+	}
+	
+	/**
+	 * 根据控件ID获取该控件的text
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public static String getTextViewNameById(AppiumDriver driver, String id) {
+		try {
+			System.out.println("[start] get TextView id: " + id);
+			String text = driver.findElementById(id).getAttribute("text");
+			System.out.println("[ end ] get TextView id: " + text);
+			return text;
+		} catch (Exception ex) {
+			System.out.println("can not find " + id);
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * 向输入框收入内容
+	 * 
+	 * @param id
+	 * @param content
+	 */
+	public static void intoContentEditTextById(AppiumDriver driver, String id, String content) {
+
+		try {
+
+			System.out.println("[start] into name: " + id);
+
+			WebElement e = driver.findElementById(id);
+			e.click();
+
+			String text = e.getAttribute("text");
+			clearText(driver, text);
+			e.sendKeys(content);
+			// e.submit(); //用户提交内容，一般不用
+			System.out.println("[ end ] into content: " + content);
+		} catch (Exception ex) {
+			System.out.println("[ error ]can not find " + id);
+			ex.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 清空输入框内容
+	 * 
+	 * @param text
+	 */
+	public static void clearText(AppiumDriver driver, String text) {
+		System.out.println("[start] Clear Text " + text);
+		if (text == null) {
+			return;
+		}
+
+		// 光标移动到末尾
+		((AndroidDeviceActionShortcuts) driver).pressKeyCode(123);
+
+		// 逐一删除内容
+		for (int i = 0; i < text.length(); i++) {
+			((AndroidDeviceActionShortcuts) driver).pressKeyCode(AndroidKeyCode.DEL);
+		}
+		System.out.println("[ end ] Clear Text finish ");
+	}
 }

@@ -1,7 +1,11 @@
 package pers.vinken.appiumUtil;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDeviceActionShortcuts;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidKeyCode;
+
 import org.junit.Assert;
 
 
@@ -81,4 +85,113 @@ public class driverUtil {
       e.printStackTrace();
     }
   }
+  
+  
+  /**
+	 * 休眠 1000 = 1秒
+	 * 
+	 * @param num
+	 */
+	public static void sleepTime(int num) {
+		try {
+			System.out.println("Wait time: " + num / 1000
+					+ "s, doing something...");
+			Thread.sleep(num);
+		} catch (Exception e) {
+			System.out.println("[ error ] Time out");
+
+		}
+	}
+	/**
+	 * 手势向左滑动
+	 */
+	public static void swipeToLeft(AppiumDriver driver) {
+		int width = driver.manage().window().getSize().width;
+		int height = driver.manage().window().getSize().height;
+		driver.swipe(width * 3 / 4, height / 2, width / 4, height / 2, 500);
+		System.out.println("[ doing ] swipeToLeft ");
+	}
+
+	/**
+	 * 手势向右滑动
+	 */
+	public static void swipeToRight(AndroidDriver driver) {
+		int width = driver.manage().window().getSize().width;
+		int height = driver.manage().window().getSize().height;
+		driver.swipe(width / 4, height / 2, width * 3 / 4, height / 2, 500);
+		System.out.println("[ doing ] swipeToRight ");
+	}
+
+	/**
+	 * 手势向右滑动,添加水平高度变量（即点击屏幕高、中、低，向右滑） location选项为high\mid\bottom
+	 */
+	public static void swipeToLeft(AndroidDriver driver,String location) {
+		int width = driver.manage().window().getSize().width;
+		int height = driver.manage().window().getSize().height;
+		if (location.equals("bottom")) {
+			driver.swipe(width * 3 / 4, height * 3 / 4, width / 4,
+					height * 3 / 4, 500);
+			System.out.println("[ doing ] swipeToLeft ");
+		} else if (location.equals("mid")) {
+			driver.swipe(width * 3 / 4, height / 2, width / 4, height / 2, 500);
+			System.out.println("[ doing ] swipeToLeft ");
+		} else if (location.equals("high")) {
+			driver.swipe(width * 3 / 4, height / 4, width / 4, height / 4, 500);
+			System.out.println("[ doing ] swipeToLeft ");
+		} else {
+			System.out.println("[ error ] location null ");
+		}
+
+	}
+
+	/**
+	 * 手势向右滑动,添加水平高度变量（即点击屏幕高、中、低，向右滑） location选项为high\mid\bottom
+	 */
+	public static void swipeToRight(AndroidDriver driver,String location) {
+		int width = driver.manage().window().getSize().width;
+		int height = driver.manage().window().getSize().height;
+		if (location.equals("bottom")) {
+			driver.swipe(width / 4, height * 3 / 4, width * 3 / 4,
+					height * 3 / 4, 500);
+			System.out.println("[ doing ] swipeToRight ");
+		} else if (location.equals("mid")) {
+			driver.swipe(width / 4, height / 2, width * 3 / 4, height / 2, 500);
+			System.out.println("[ doing ] swipeToRight ");
+		} else if (location.equals("high")) {
+			driver.swipe(width / 4, height / 4, width * 3 / 4, height / 4, 500);
+			System.out.println("[ doing ] swipeToRight ");
+		} else {
+			System.out.println("[ error ] location null ");
+		}
+
+	}
+
+	/**
+	 * 手势向下滑动
+	 */
+	public static void swipeToDown(AndroidDriver driver) {
+		int width = driver.manage().window().getSize().width;
+		int height = driver.manage().window().getSize().height;
+		driver.swipe(width / 2, height / 4, width / 2, height * 3 / 4, 1000);
+		// wait for page loading
+	}
+
+	/**
+	 * 
+	 * 手势向上滑动
+	 */
+	public static void swipeToUp(AppiumDriver driver) {
+		int width = driver.manage().window().getSize().width;
+		int height = driver.manage().window().getSize().height;
+		driver.swipe(width / 2, height * 3 / 4, width / 2, height / 4, 1000);
+		// wait for page loading
+	}
+
+	
+	public static void pressBack(AppiumDriver driver){
+		
+		((AndroidDeviceActionShortcuts) driver).pressKeyCode(AndroidKeyCode.BACK);
+	}
+	
+	
 }

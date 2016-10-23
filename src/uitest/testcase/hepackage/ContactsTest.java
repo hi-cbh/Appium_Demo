@@ -28,10 +28,8 @@ public class ContactsTest {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
 		capabilities.setCapability("platformName", "Android");
-		capabilities.setCapability("deviceName", "0bd08bcc");
-
-		// ���ð�׿ϵͳ�汾
-		capabilities.setCapability("platformVersion", "4.3");
+		capabilities.setCapability("deviceName", "MXF0215911001825");
+		capabilities.setCapability("platformVersion", "5.1.1");
 		// ����apk·��
 		capabilities.setCapability("app", app.getAbsolutePath());
 
