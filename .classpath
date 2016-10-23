@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="libs/java-client-4.1.2.jar"/>
 	<classpathentry kind="lib" path="libs/selenium-java-3.0.1.zip"/>
 	<classpathentry kind="lib" path="libs/selenium-server-standalone-3.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/poi-3.14.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

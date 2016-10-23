@@ -1,3 +1,4 @@
+package uitest.testcase.hepackage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 
@@ -18,28 +19,28 @@ public class ContactsTest {
 
 	@Before
 	public void setUp() throws Exception {
-		// ÉèÖÃapkµÄÂ·¾¶
+		// ï¿½ï¿½ï¿½ï¿½apkï¿½ï¿½Â·ï¿½ï¿½
 		File classpathRoot = new File(System.getProperty("user.dir"));
 		File appDir = new File(classpathRoot, "apk");
 		File app = new File(appDir, "ContactManager.apk");
 
-		// ÉèÖÃ×Ô¶¯»¯Ïà¹Ø²ÎÊı
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
 		capabilities.setCapability("platformName", "Android");
 		capabilities.setCapability("deviceName", "0bd08bcc");
 
-		// ÉèÖÃ°²×¿ÏµÍ³°æ±¾
+		// ï¿½ï¿½ï¿½Ã°ï¿½×¿ÏµÍ³ï¿½æ±¾
 		capabilities.setCapability("platformVersion", "4.3");
-		// ÉèÖÃapkÂ·¾¶
+		// ï¿½ï¿½ï¿½ï¿½apkÂ·ï¿½ï¿½
 		capabilities.setCapability("app", app.getAbsolutePath());
 
-		// ÉèÖÃappµÄÖ÷°üÃûºÍÖ÷ÀàÃû
+		// ï¿½ï¿½ï¿½ï¿½appï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		capabilities.setCapability("appPackage",
 				"com.example.android.contactmanager");
 		capabilities.setCapability("appActivity", ".ContactManager");
 
-		// ³õÊ¼»¯
+		// ï¿½ï¿½Ê¼ï¿½ï¿½
 		driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
 	}
 
